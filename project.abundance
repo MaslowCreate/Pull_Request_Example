@@ -37,19 +37,367 @@
           ]
         },
         {
-          "atomType": "Circle",
-          "x": 0.2,
-          "y": 0.5,
-          "uniqueID": "id-154",
+          "atomType": "GitHubMolecule",
+          "x": 0.1,
+          "y": 0.7,
+          "uniqueID": "id-167",
+          "name": "Trapezoid",
           "ioValues": [
             {
-              "name": "diameter",
-              "ioValue": 10
+              "name": "Base1",
+              "ioValue": 14,
+              "currentEquation": "width"
+            },
+            {
+              "name": "Base2",
+              "ioValue": 9.799999999999999,
+              "currentEquation": "width * 0.7"
+            },
+            {
+              "name": "Height(Y)",
+              "ioValue": 22,
+              "currentEquation": "height"
+            }
+          ],
+          "topLevel": false,
+          "allAtoms": [
+            {
+              "atomType": "Output",
+              "x": 1,
+              "y": 0.5,
+              "uniqueID": "id-162",
+              "ioValues": [
+                {
+                  "name": "number or geometry",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                }
+              ]
+            },
+            {
+              "atomType": "Code",
+              "x": 0.5,
+              "y": 0.4,
+              "uniqueID": "id-163",
+              "ioValues": [
+                {
+                  "name": "Base1",
+                  "ioValue": 14
+                },
+                {
+                  "name": "Base2",
+                  "ioValue": 9.799999999999999
+                },
+                {
+                  "name": "Height",
+                  "ioValue": 22
+                },
+                {
+                  "name": "color",
+                  "ioValue": "#5B9BD5",
+                  "currentEquation": "#5B9BD5"
+                }
+              ],
+              "interpreterVersion": 1,
+              "code": "/**\n * 2D isosceles trapezoid.\n * Base1 = bottom edge length, Base2 = top edge length,\n * Height = perpendicular distance between the two bases.\n * Centered on the origin in the XY plane.\n *\n * @param Base1  bottom base length (mm)\n * @param Base2  top base length (mm)\n * @param Height height between bases (mm)\n */\nfunction run(\n  Base1: number = 40,\n  Base2: number = 20,\n  Height: number = 25,\n  color: string = \"#5B9BD5\",\n): Assembly {\n  const halfH = Height / 2;\n\n  // Four corners, symmetric about the Y axis (isosceles)\n  const shape = replicad\n    .draw([-Base1 / 2, -halfH]) // bottom-left\n    .lineTo([Base1 / 2, -halfH]) // bottom-right\n    .lineTo([Base2 / 2, halfH]) // top-right\n    .lineTo([-Base2 / 2, halfH]) // top-left\n    .close();\n\n  return new Assembly({\n    geometry: shape,\n    color: color,\n    tags: [\"trapezoid\", \"2D\"],\n    bom: [`Isosceles trapezoid ${Base1}/${Base2}×${Height} mm`],\n  });\n}",
+              "compiledCode": "\"use strict\";\n/**\n * 2D isosceles trapezoid.\n * Base1 = bottom edge length, Base2 = top edge length,\n * Height = perpendicular distance between the two bases.\n * Centered on the origin in the XY plane.\n *\n * @param Base1  bottom base length (mm)\n * @param Base2  top base length (mm)\n * @param Height height between bases (mm)\n */\nfunction run(Base1 = 40, Base2 = 20, Height = 25, color = \"#5B9BD5\") {\n    const halfH = Height / 2;\n    // Four corners, symmetric about the Y axis (isosceles)\n    const shape = replicad\n        .draw([-Base1 / 2, -halfH]) // bottom-left\n        .lineTo([Base1 / 2, -halfH]) // bottom-right\n        .lineTo([Base2 / 2, halfH]) // top-right\n        .lineTo([-Base2 / 2, halfH]) // top-left\n        .close();\n    return new Assembly({\n        geometry: shape,\n        color: color,\n        tags: [\"trapezoid\", \"2D\"],\n        bom: [`Isosceles trapezoid ${Base1}/${Base2}×${Height} mm`],\n    });\n}\n"
+            },
+            {
+              "atomType": "Input",
+              "x": 0,
+              "y": 0.2,
+              "uniqueID": "id-164",
+              "name": "Base1",
+              "options": []
+            },
+            {
+              "atomType": "Input",
+              "x": 0,
+              "y": 0.2,
+              "uniqueID": "id-165",
+              "name": "Base2",
+              "options": []
+            },
+            {
+              "atomType": "Input",
+              "x": 0,
+              "y": 0.3,
+              "uniqueID": "id-166",
+              "name": "Height(Y)",
+              "options": []
+            }
+          ],
+          "allConnectors": [
+            {
+              "ap2Name": "number or geometry",
+              "ap1ID": "id-163",
+              "ap2ID": "id-162"
+            },
+            {
+              "ap2Name": "Base1",
+              "ap1ID": "id-164",
+              "ap2ID": "id-163"
+            },
+            {
+              "ap2Name": "Base2",
+              "ap1ID": "id-165",
+              "ap2ID": "id-163"
+            },
+            {
+              "ap2Name": "Height",
+              "ap1ID": "id-166",
+              "ap2ID": "id-163"
+            }
+          ],
+          "parentRepo": {
+            "lastFoundGit": "2026-10-09T18:23:38.944Z",
+            "privateRepo": false,
+            "repoName": "Trapezoid",
+            "dateCreated": "2026-06-16T00:33:52Z",
+            "likes": 0,
+            "pngURL": "https://raw.githubusercontent.com/BarbourSmith/Trapezoid/master/project.png?sanitize=true",
+            "readme": "https://raw.githubusercontent.com/BarbourSmith/Trapezoid/master/README.md?sanitize=true",
+            "yyyy": 2026,
+            "topMoleculeID": "",
+            "userRanking": 0,
+            "userSetAsThumbnail": false,
+            "githubMoleculesUsed": [],
+            "html_url": "https://github.com/BarbourSmith/Trapezoid",
+            "topics": [],
+            "pullRequests": [],
+            "forks": 0,
+            "dateModified": "2026-06-16T00:42:25Z",
+            "ranking": 1,
+            "searchField": "trapezoid barboursmith creates a 2d isosceles trapezoid defined by base1 base2 and height ",
+            "owner": "BarbourSmith",
+            "description": "Creates a 2D Isosceles Trapezoid defined by base1 base2 and height",
+            "contentURL": "https://raw.githubusercontent.com/BarbourSmith/Trapezoid/master/project.abundance?sanitize=true",
+            "svgURL": "https://raw.githubusercontent.com/BarbourSmith/Trapezoid/master/project.svg?sanitize=true",
+            "isLocal": false
+          },
+          "unitsKey": "Unitless",
+          "fileTypeVersion": 1,
+          "lastReloadedFromGithubAt": 1791572284156
+        },
+        {
+          "atomType": "GitHubMolecule",
+          "x": 0.5,
+          "y": 0.6,
+          "uniqueID": "id-222",
+          "name": "Isosceles-Triangle",
+          "ioValues": [
+            {
+              "name": "Base",
+              "ioValue": 9.799999999999999,
+              "currentEquation": "width *0.7"
+            },
+            {
+              "name": "Height",
+              "ioValue": 18,
+              "currentEquation": "height - 4"
+            },
+            {
+              "name": "Thickness",
+              "ioValue": 10,
+              "currentEquation": "10"
+            }
+          ],
+          "topLevel": false,
+          "allAtoms": [
+            {
+              "atomType": "Output",
+              "x": 1,
+              "y": 0.5,
+              "uniqueID": "id-217",
+              "ioValues": [
+                {
+                  "name": "number or geometry",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                }
+              ]
+            },
+            {
+              "atomType": "Code",
+              "x": 0.4,
+              "y": 0.4,
+              "uniqueID": "id-218",
+              "ioValues": [
+                {
+                  "name": "base",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                },
+                {
+                  "name": "height",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                },
+                {
+                  "name": "thickness",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                }
+              ],
+              "interpreterVersion": 0,
+              "code": " \n      //Inputs:[base, height, thickness]\n      //This defines the molecules inputs and creates variables with the same names which can be referenced in the code\n    \n      \n      //We can also create a new shape from scratch\n      let createdRectangle = replicad.drawRectangle(5,7)\n      //This is the plane we are going to put our new shape on\n      const newPlane = new replicad.Plane().pivot(0, 'Y');\n      //And we extrude the shape to make it 3D\n      let createdShape = createdRectangle.sketchOnPlane(newPlane).extrude(height)\n\n      const triangle = replicad.draw([-base/2, 0])\n              .lineTo([base/2, 0])\n              .lineTo([0, height])\n              .close()\n              .sketchOnPlane()\n              .extrude(thickness)\n      \n      //For our new geometry we need to define the tags, color, plane, etc\n      let shape2 = {\n          geometry: [triangle], \n          tags: [\"aTag\"],\n          color: '#A3CE5B',\n          plane: newPlane,\n          bom: []\n      }\n      \n      //Then we can return our created shape in just the same way\n      return shape2\n \n      \n      \n          /**\n          To Use the Code Atom, enter your inputs to the input list a.e Inputs:[shape, height]\n          If your input is connected to another atom with a replicad geometry you can access its geometry by looking up its ID in your library. a.e library[Input1].geometry[0] \n          Use any replicad available methods to modify your geometry. Learn more about all of the available methods at \n          https://replicad.xyz/docs/introapp/UserGuide.html \n          Return a replicad object that includes geometry, color, tags and plane. \n      \n      \n          Example Code Atom:\n      \n            Inputs:[shape, x];\n      \n            let finalShape = library[shape].geometry[0].clone.translate[x,0,0]\n      \n            return {geometry: finalShape, color: library[shape].color, plane: library[shape].plane, tags: library[shape].tags }\n      \n            - See more examples at _______ \n      \n      \n          */\n      "
+            },
+            {
+              "atomType": "Input",
+              "x": 0,
+              "y": 0.2,
+              "uniqueID": "id-219",
+              "name": "Base",
+              "type": "number",
+              "options": []
+            },
+            {
+              "atomType": "Input",
+              "x": 0,
+              "y": 0.2,
+              "uniqueID": "id-220",
+              "name": "Height",
+              "type": "number",
+              "options": []
+            },
+            {
+              "atomType": "Input",
+              "x": 0,
+              "y": 0.3,
+              "uniqueID": "id-221",
+              "name": "Thickness",
+              "type": "number",
+              "options": []
+            }
+          ],
+          "allConnectors": [
+            {
+              "ap2Name": "number or geometry",
+              "ap1ID": "id-218",
+              "ap2ID": "id-217"
+            },
+            {
+              "ap2Name": "base",
+              "ap1ID": "id-219",
+              "ap2ID": "id-218"
+            },
+            {
+              "ap2Name": "height",
+              "ap1ID": "id-220",
+              "ap2ID": "id-218"
+            },
+            {
+              "ap2Name": "thickness",
+              "ap1ID": "id-221",
+              "ap2ID": "id-218"
+            }
+          ],
+          "parentRepo": {
+            "lastFoundGit": "2026-10-09T18:23:38.944Z",
+            "privateRepo": false,
+            "repoName": "Isosceles-Triangle",
+            "dateCreated": "2025-06-24T17:58:53Z",
+            "likes": 0,
+            "pngURL": "https://raw.githubusercontent.com/BarbourSmith/Isosceles-Triangle/master/project.png?sanitize=true",
+            "readme": "https://raw.githubusercontent.com/BarbourSmith/Isosceles-Triangle/master/README.md?sanitize=true",
+            "yyyy": 2025,
+            "topMoleculeID": "",
+            "userRanking": 0,
+            "userSetAsThumbnail": false,
+            "githubMoleculesUsed": [],
+            "html_url": "https://github.com/BarbourSmith/Isosceles-Triangle",
+            "topics": [],
+            "pullRequests": [],
+            "forks": 0,
+            "dateModified": "2025-06-24T20:40:19Z",
+            "ranking": 1,
+            "searchField": "isosceles-triangle barboursmith produces a triangle with two sides of equal length given the base and height of the triangle. ",
+            "owner": "BarbourSmith",
+            "description": "Produces a triangle with two sides of equal length given the base and height of the triangle.",
+            "contentURL": "https://raw.githubusercontent.com/BarbourSmith/Isosceles-Triangle/master/project.abundance?sanitize=true",
+            "svgURL": "https://raw.githubusercontent.com/BarbourSmith/Isosceles-Triangle/master/project.svg?sanitize=true",
+            "isLocal": false
+          },
+          "unitsKey": "MM",
+          "fileTypeVersion": 1,
+          "lastReloadedFromGithubAt": 1791572340763
+        },
+        {
+          "atomType": "Move",
+          "x": 0.3,
+          "y": 0.6,
+          "uniqueID": "id-237",
+          "ioValues": [
+            {
+              "name": "geometry",
+              "ioValue": "__GEOMETRY_INPUT__"
+            },
+            {
+              "name": "xDist",
+              "ioValue": 0
+            },
+            {
+              "name": "yDist",
+              "ioValue": 11,
+              "currentEquation": "height / 2"
+            },
+            {
+              "name": "zDist",
+              "ioValue": 0
+            }
+          ]
+        },
+        {
+          "atomType": "Extrude",
+          "x": 0.4,
+          "y": 0.7,
+          "uniqueID": "id-243",
+          "ioValues": [
+            {
+              "name": "geometry",
+              "ioValue": "__GEOMETRY_INPUT__"
+            },
+            {
+              "name": "height",
+              "ioValue": 0.75,
+              "currentEquation": "ply_thickness"
+            }
+          ]
+        },
+        {
+          "atomType": "Difference",
+          "x": 0.6,
+          "y": 0.9,
+          "uniqueID": "id-247",
+          "ioValues": [
+            {
+              "name": "retain",
+              "ioValue": "__GEOMETRY_INPUT__"
+            },
+            {
+              "name": "remove",
+              "ioValue": "__GEOMETRY_INPUT__"
             }
           ]
         }
       ],
-      "allConnectors": [],
+      "allConnectors": [
+        {
+          "ap2Name": "geometry",
+          "ap1ID": "id-167",
+          "ap2ID": "id-237"
+        },
+        {
+          "ap2Name": "remove",
+          "ap1ID": "id-222",
+          "ap2ID": "id-247"
+        },
+        {
+          "ap2Name": "geometry",
+          "ap1ID": "id-237",
+          "ap2ID": "id-243"
+        },
+        {
+          "ap2Name": "retain",
+          "ap1ID": "id-243",
+          "ap2ID": "id-247"
+        }
+      ],
       "fileTypeVersion": 1
     },
     {
@@ -85,7 +433,7 @@
       "x": 0.1,
       "y": 0.3,
       "uniqueID": "id-50",
-      "name": "plywood_thickness",
+      "name": "ply_thickness",
       "value": 0.75
     },
     {
