@@ -4,13 +4,6 @@
 
 ![](/project.png)
 
-## Inputs
-
-- **width** (number)
-- **depth** (undefined)
-- **height** (undefined)
-
-
 
 
  
