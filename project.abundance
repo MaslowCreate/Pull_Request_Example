@@ -1,13 +1,130 @@
 {
-    "atomType": "Molecule",
-    "x": 0,
-    "y": 0,
-    "uniqueID": "id-1",
-    "name": "Pull_Request_Example",
-    "topLevel": true,
-    "allAtoms": [],
-    "allConnectors": [],
-    "unitsKey": "Inches",
-    "fileTypeVersion": 1,
-    "filetypeVersion": 1
+  "atomType": "Molecule",
+  "x": 0,
+  "y": 0,
+  "uniqueID": "id-1",
+  "name": "Pull_Request_Example",
+  "ioValues": [
+    {
+      "name": "width",
+      "ioValue": 15
+    },
+    {
+      "name": "depth",
+      "ioValue": 8
+    },
+    {
+      "name": "height",
+      "ioValue": 10
+    }
+  ],
+  "topLevel": true,
+  "allAtoms": [
+    {
+      "atomType": "Input",
+      "x": 0,
+      "y": 0.5,
+      "uniqueID": "id-11",
+      "name": "depth",
+      "options": []
+    },
+    {
+      "atomType": "Input",
+      "x": 0,
+      "y": 0.7,
+      "uniqueID": "id-14",
+      "name": "height",
+      "options": []
+    },
+    {
+      "atomType": "Rectangle",
+      "x": 0.2,
+      "y": 0.4,
+      "uniqueID": "id-17",
+      "ioValues": [
+        {
+          "name": "x length",
+          "ioValue": 15
+        },
+        {
+          "name": "y length",
+          "ioValue": 8
+        }
+      ]
+    },
+    {
+      "atomType": "Output",
+      "x": 1,
+      "y": 0.5,
+      "uniqueID": "id-2",
+      "ioValues": [
+        {
+          "name": "number or geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ]
+    },
+    {
+      "atomType": "Constant",
+      "x": 0.2,
+      "y": 0.2,
+      "uniqueID": "id-21",
+      "name": "WallThickness",
+      "value": 0.5
+    },
+    {
+      "atomType": "Extrude",
+      "x": 0.4,
+      "y": 0.3,
+      "uniqueID": "id-23",
+      "ioValues": [
+        {
+          "name": "geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "height",
+          "ioValue": 0.5
+        }
+      ]
+    },
+    {
+      "atomType": "Input",
+      "x": 0,
+      "y": 0.3,
+      "uniqueID": "id-8",
+      "name": "width",
+      "options": []
+    }
+  ],
+  "allConnectors": [
+    {
+      "ap2Name": "y length",
+      "ap1ID": "id-11",
+      "ap2ID": "id-17"
+    },
+    {
+      "ap2Name": "geometry",
+      "ap1ID": "id-17",
+      "ap2ID": "id-23"
+    },
+    {
+      "ap2Name": "height",
+      "ap1ID": "id-21",
+      "ap2ID": "id-23"
+    },
+    {
+      "ap2Name": "number or geometry",
+      "ap1ID": "id-23",
+      "ap2ID": "id-2"
+    },
+    {
+      "ap2Name": "x length",
+      "ap1ID": "id-8",
+      "ap2ID": "id-17"
+    }
+  ],
+  "unitsKey": "Inches",
+  "fileTypeVersion": 1,
+  "filetypeVersion": 1
 }
