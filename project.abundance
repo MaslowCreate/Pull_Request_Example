@@ -7,11 +7,13 @@
   "ioValues": [
     {
       "name": "width",
-      "ioValue": 14
+      "ioValue": 14,
+      "currentEquation": "14"
     },
     {
       "name": "height",
-      "ioValue": 22
+      "ioValue": 12,
+      "currentEquation": "12"
     }
   ],
   "topLevel": true,
@@ -55,7 +57,7 @@
             },
             {
               "name": "Height(Y)",
-              "ioValue": 22,
+              "ioValue": 12,
               "currentEquation": "height"
             }
           ],
@@ -89,7 +91,7 @@
                 },
                 {
                   "name": "Height",
-                  "ioValue": 22
+                  "ioValue": 12
                 },
                 {
                   "name": "color",
@@ -192,7 +194,7 @@
             },
             {
               "name": "Height",
-              "ioValue": 18,
+              "ioValue": 8,
               "currentEquation": "height - 4"
             },
             {
@@ -333,7 +335,7 @@
             },
             {
               "name": "yDist",
-              "ioValue": 11,
+              "ioValue": 6,
               "currentEquation": "height / 2"
             },
             {
@@ -374,6 +376,297 @@
               "ioValue": "__GEOMETRY_INPUT__"
             }
           ]
+        },
+        {
+          "atomType": "GitHubMolecule",
+          "x": 0.7,
+          "y": 0.3,
+          "uniqueID": "id-356",
+          "name": "Filet_Vertical_Edges",
+          "ioValues": [
+            {
+              "name": "Shape",
+              "ioValue": "__GEOMETRY_INPUT__"
+            },
+            {
+              "name": "Radius",
+              "ioValue": 1,
+              "currentEquation": "1"
+            },
+            {
+              "name": "Bounding_Box",
+              "ioValue": "__GEOMETRY_INPUT__"
+            }
+          ],
+          "topLevel": false,
+          "allAtoms": [
+            {
+              "atomType": "Output",
+              "x": 1,
+              "y": 0.5,
+              "uniqueID": "id-346",
+              "ioValues": [
+                {
+                  "name": "number or geometry",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                }
+              ]
+            },
+            {
+              "atomType": "Input",
+              "x": 0,
+              "y": 0.2,
+              "uniqueID": "id-347",
+              "name": "Shape",
+              "type": "geometry",
+              "options": []
+            },
+            {
+              "atomType": "Input",
+              "x": 0,
+              "y": 0.2,
+              "uniqueID": "id-348",
+              "name": "Radius",
+              "options": []
+            },
+            {
+              "atomType": "Rectangle",
+              "x": 0.3,
+              "y": 0.2,
+              "uniqueID": "id-349",
+              "ioValues": [
+                {
+                  "name": "x length",
+                  "ioValue": 100
+                },
+                {
+                  "name": "y length",
+                  "ioValue": 100
+                }
+              ]
+            },
+            {
+              "atomType": "Extrude",
+              "x": 0.4,
+              "y": 0.3,
+              "uniqueID": "id-350",
+              "ioValues": [
+                {
+                  "name": "geometry",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                },
+                {
+                  "name": "height",
+                  "ioValue": 100
+                }
+              ]
+            },
+            {
+              "atomType": "Rectangle",
+              "x": 0.2,
+              "y": 0.8,
+              "uniqueID": "id-351",
+              "ioValues": [
+                {
+                  "name": "x length",
+                  "ioValue": 100
+                },
+                {
+                  "name": "y length",
+                  "ioValue": 300
+                }
+              ]
+            },
+            {
+              "atomType": "Extrude",
+              "x": 0.3,
+              "y": 0.8,
+              "uniqueID": "id-352",
+              "ioValues": [
+                {
+                  "name": "geometry",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                },
+                {
+                  "name": "height",
+                  "ioValue": 150
+                }
+              ]
+            },
+            {
+              "atomType": "Move",
+              "x": 0.4,
+              "y": 0.6,
+              "uniqueID": "id-353",
+              "ioValues": [
+                {
+                  "name": "geometry",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                },
+                {
+                  "name": "xDist",
+                  "ioValue": 21
+                },
+                {
+                  "name": "yDist",
+                  "ioValue": 20
+                },
+                {
+                  "name": "zDist",
+                  "ioValue": 0
+                }
+              ]
+            },
+            {
+              "atomType": "Input",
+              "x": 0,
+              "y": 0.3,
+              "uniqueID": "id-354",
+              "name": "Bounding_Box",
+              "type": "geometry",
+              "options": []
+            },
+            {
+              "atomType": "Code",
+              "x": 0.7,
+              "y": 0.4,
+              "uniqueID": "id-355",
+              "ioValues": [
+                {
+                  "name": "shape",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                },
+                {
+                  "name": "radius",
+                  "ioValue": 1
+                },
+                {
+                  "name": "region",
+                  "ioValue": "__GEOMETRY_INPUT__"
+                }
+              ],
+              "interpreterVersion": 1,
+              "code": "/**\n * Fillets vertical (Z-direction) edges on geometry with optional region-based filtering.\n * If a region is provided, only fillets edges within that bounding box.\n */\nfunction run(\n  shape: Assembly,\n  radius: number = 2,\n  region?: Assembly\n) {\n  // ── Step 1: Determine edge filter based on region ──────────────────\n  let edgeFilter: (e: any) => any;\n  let inputShape = shape\n\n  if (region) {\n    try {\n      // Extract geometry from region (could be Assembly or direct 3D shape)\n      let regionGeo = region.geometry;\n\n      // If it's an array, get the first element\n      if (Array.isArray(regionGeo)) {\n        regionGeo = regionGeo[0];\n      }\n      console.log(regionGeo.boundingBox)\n      // Get bounding box from the 3D shape\n      const bounds = regionGeo.boundingBox.bounds\n      if (bounds) {\n        console.log(\"bounding in new\")\n        console.log(bounds)\n        edgeFilter = (e) => e.inDirection(\"Z\").inBox(bounds[0], bounds[1]);\n        console.log(edgeFilter)\n      } else {\n        edgeFilter = (e) => e.inDirection(\"Z\");\n      }\n    } catch (err) {\n      // Fallback if bounds extraction fails\n      edgeFilter = (e) => e.inDirection(\"Z\");\n    }\n  } else {\n    // No region: fillet only vertical (Z-direction) edges\n    edgeFilter = (e) => e.inDirection(\"Z\");\n  }\n\n  // ── Step 2: Apply fillet to selected edges ──────────────────────────────\n  // If no edge selector is provided, fillet all edges.\n  // Pass a selector like (e) => e.inPlane(\"XY\", z) to fillet only specific edges.\n  let filletedGeometry = inputShape.geometry;\n  if (edgeFilter) {\n    filletedGeometry = inputShape.geometry.fillet(radius, edgeFilter);\n  } else {\n    filletedGeometry = inputShape.geometry.fillet(radius);\n  }\n\n  // ── Step 3: Wrap in an Assembly preserving upstream properties ──────────\n  // Color, tags, and BOM info are inherited from the input shape.\n  const result: Assembly = new Assembly({\n    geometry: filletedGeometry,\n    color: inputShape.color,\n    tags: inputShape.tags,\n    plane: inputShape.plane,\n    bom: inputShape.bom,\n  });\n  return result;\n}",
+              "compiledCode": "\"use strict\";\n/**\n * Fillets vertical (Z-direction) edges on geometry with optional region-based filtering.\n * If a region is provided, only fillets edges within that bounding box.\n */\nfunction run(shape, radius = 2, region) {\n    // ── Step 1: Determine edge filter based on region ──────────────────\n    let edgeFilter;\n    let inputShape = shape;\n    if (region) {\n        try {\n            // Extract geometry from region (could be Assembly or direct 3D shape)\n            let regionGeo = region.geometry;\n            // If it's an array, get the first element\n            if (Array.isArray(regionGeo)) {\n                regionGeo = regionGeo[0];\n            }\n            console.log(regionGeo.boundingBox);\n            // Get bounding box from the 3D shape\n            const bounds = regionGeo.boundingBox.bounds;\n            if (bounds) {\n                console.log(\"bounding in new\");\n                console.log(bounds);\n                edgeFilter = (e) => e.inDirection(\"Z\").inBox(bounds[0], bounds[1]);\n                console.log(edgeFilter);\n            }\n            else {\n                edgeFilter = (e) => e.inDirection(\"Z\");\n            }\n        }\n        catch (err) {\n            // Fallback if bounds extraction fails\n            edgeFilter = (e) => e.inDirection(\"Z\");\n        }\n    }\n    else {\n        // No region: fillet only vertical (Z-direction) edges\n        edgeFilter = (e) => e.inDirection(\"Z\");\n    }\n    // ── Step 2: Apply fillet to selected edges ──────────────────────────────\n    // If no edge selector is provided, fillet all edges.\n    // Pass a selector like (e) => e.inPlane(\"XY\", z) to fillet only specific edges.\n    let filletedGeometry = inputShape.geometry;\n    if (edgeFilter) {\n        filletedGeometry = inputShape.geometry.fillet(radius, edgeFilter);\n    }\n    else {\n        filletedGeometry = inputShape.geometry.fillet(radius);\n    }\n    // ── Step 3: Wrap in an Assembly preserving upstream properties ──────────\n    // Color, tags, and BOM info are inherited from the input shape.\n    const result = new Assembly({\n        geometry: filletedGeometry,\n        color: inputShape.color,\n        tags: inputShape.tags,\n        plane: inputShape.plane,\n        bom: inputShape.bom,\n    });\n    return result;\n}\n"
+            }
+          ],
+          "allConnectors": [
+            {
+              "ap2Name": "shape",
+              "ap1ID": "id-347",
+              "ap2ID": "id-355"
+            },
+            {
+              "ap2Name": "radius",
+              "ap1ID": "id-348",
+              "ap2ID": "id-355"
+            },
+            {
+              "ap2Name": "geometry",
+              "ap1ID": "id-349",
+              "ap2ID": "id-350"
+            },
+            {
+              "ap2Name": "geometry",
+              "ap1ID": "id-351",
+              "ap2ID": "id-352"
+            },
+            {
+              "ap2Name": "geometry",
+              "ap1ID": "id-352",
+              "ap2ID": "id-353"
+            },
+            {
+              "ap2Name": "region",
+              "ap1ID": "id-354",
+              "ap2ID": "id-355"
+            },
+            {
+              "ap2Name": "number or geometry",
+              "ap1ID": "id-355",
+              "ap2ID": "id-346"
+            }
+          ],
+          "parentRepo": {
+            "lastFoundGit": "2026-10-09T18:23:38.944Z",
+            "privateRepo": false,
+            "repoName": "Filet_Vertical_Edges",
+            "dateCreated": "2026-03-26T16:35:10Z",
+            "likes": 0,
+            "pngURL": "https://raw.githubusercontent.com/alzatin/Filet_Vertical_Edges/master/project.png?sanitize=true",
+            "readme": "https://raw.githubusercontent.com/alzatin/Filet_Vertical_Edges/master/README.md?sanitize=true",
+            "yyyy": 2026,
+            "topMoleculeID": "",
+            "userRanking": 0,
+            "userSetAsThumbnail": false,
+            "githubMoleculesUsed": [],
+            "html_url": "https://github.com/alzatin/Filet_Vertical_Edges",
+            "topics": [],
+            "pullRequests": [],
+            "parentRepo": "BarbourSmith/Filet_Vertical_Edges",
+            "forks": 0,
+            "dateModified": "2026-06-03T19:32:29Z",
+            "ranking": 2,
+            "searchField": "filet_vertical_edges alzatin fillets only the vertical edges of the input shape ",
+            "owner": "alzatin",
+            "description": "Fillets only the vertical edges of the input shape",
+            "contentURL": "https://raw.githubusercontent.com/alzatin/Filet_Vertical_Edges/master/project.abundance?sanitize=true",
+            "svgURL": "https://raw.githubusercontent.com/alzatin/Filet_Vertical_Edges/master/project.svg?sanitize=true",
+            "isLocal": false
+          },
+          "unitsKey": "MM",
+          "fileTypeVersion": 1,
+          "lastReloadedFromGithubAt": 1791572451577
+        },
+        {
+          "atomType": "Rotate",
+          "x": 0.7,
+          "y": 0.6,
+          "uniqueID": "id-394",
+          "ioValues": [
+            {
+              "name": "geometry",
+              "ioValue": "__GEOMETRY_INPUT__"
+            },
+            {
+              "name": "x-axis degrees",
+              "ioValue": 90,
+              "currentEquation": "90"
+            },
+            {
+              "name": "y-axis degrees",
+              "ioValue": 0
+            },
+            {
+              "name": "z-axis degrees",
+              "ioValue": 0
+            }
+          ]
+        },
+        {
+          "atomType": "Move",
+          "x": 0.8,
+          "y": 0.8,
+          "uniqueID": "id-400",
+          "ioValues": [
+            {
+              "name": "geometry",
+              "ioValue": "__GEOMETRY_INPUT__"
+            },
+            {
+              "name": "xDist",
+              "ioValue": 0
+            },
+            {
+              "name": "yDist",
+              "ioValue": 0.375,
+              "currentEquation": "ply_thickness / 2"
+            },
+            {
+              "name": "zDist",
+              "ioValue": 0
+            }
+          ]
         }
       ],
       "allConnectors": [
@@ -396,6 +689,26 @@
           "ap2Name": "retain",
           "ap1ID": "id-243",
           "ap2ID": "id-247"
+        },
+        {
+          "ap2Name": "Shape",
+          "ap1ID": "id-247",
+          "ap2ID": "id-356"
+        },
+        {
+          "ap2Name": "geometry",
+          "ap1ID": "id-356",
+          "ap2ID": "id-394"
+        },
+        {
+          "ap2Name": "geometry",
+          "ap1ID": "id-394",
+          "ap2ID": "id-400"
+        },
+        {
+          "ap2Name": "number or geometry",
+          "ap1ID": "id-400",
+          "ap2ID": "id-152"
         }
       ],
       "fileTypeVersion": 1
@@ -413,12 +726,325 @@
       ]
     },
     {
+      "atomType": "Rotate",
+      "x": 0.3,
+      "y": 0.6,
+      "uniqueID": "id-388",
+      "ioValues": [
+        {
+          "name": "geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "x-axis degrees",
+          "ioValue": 0
+        },
+        {
+          "name": "y-axis degrees",
+          "ioValue": 0
+        },
+        {
+          "name": "z-axis degrees",
+          "ioValue": 90,
+          "currentEquation": "90"
+        }
+      ]
+    },
+    {
+      "atomType": "Assembly",
+      "x": 0.6,
+      "y": 0.6,
+      "uniqueID": "id-406",
+      "ioValues": [
+        {
+          "name": "makeDisjoint",
+          "ioValue": true
+        },
+        {
+          "name": "Shape 1",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "Shape3",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "Shape4",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ]
+    },
+    {
+      "atomType": "CutOrient",
+      "x": 0.7,
+      "y": 0.4,
+      "uniqueID": "id-413",
+      "name": "Cut Orient",
+      "ioValues": [
+        {
+          "name": "geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ],
+      "orientations": [
+        {
+          "downwardFaceIndex": 1,
+          "faceCount": 23,
+          "faceNormal": [
+            -1,
+            1.1102230246251565e-16,
+            -1.1102230246251565e-16
+          ]
+        },
+        {
+          "downwardFaceIndex": 1,
+          "faceCount": 25,
+          "faceNormal": [
+            0,
+            1,
+            -1.1102230246251565e-16
+          ]
+        },
+        {
+          "downwardFaceIndex": 2,
+          "faceCount": 4,
+          "faceNormal": [
+            0,
+            0,
+            -1
+          ]
+        }
+      ],
+      "orientationsForHashed": 3
+    },
+    {
+      "atomType": "GitHubMolecule",
+      "x": 0.5,
+      "y": 0.9,
+      "uniqueID": "id-421",
+      "name": "HalfLap",
+      "ioValues": [
+        {
+          "name": "Assembly2",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "Assembly1",
+          "ioValue": "__GEOMETRY_INPUT__"
+        }
+      ],
+      "topLevel": false,
+      "allAtoms": [
+        {
+          "atomType": "Output",
+          "x": 1,
+          "y": 0.5,
+          "uniqueID": "id-417",
+          "ioValues": [
+            {
+              "name": "number or geometry",
+              "ioValue": "__GEOMETRY_INPUT__"
+            }
+          ]
+        },
+        {
+          "atomType": "Input",
+          "x": 0,
+          "y": 0.2,
+          "uniqueID": "id-418",
+          "name": "Assembly2",
+          "type": "geometry",
+          "options": []
+        },
+        {
+          "atomType": "Input",
+          "x": 0,
+          "y": 0.2,
+          "uniqueID": "id-419",
+          "name": "Assembly1",
+          "type": "geometry",
+          "options": []
+        },
+        {
+          "atomType": "Code",
+          "x": 0.5,
+          "y": 0.4,
+          "uniqueID": "id-420",
+          "ioValues": [
+            {
+              "name": "shape1",
+              "ioValue": "__GEOMETRY_INPUT__"
+            },
+            {
+              "name": "shape2",
+              "ioValue": "__GEOMETRY_INPUT__"
+            }
+          ],
+          "interpreterVersion": 1,
+          "code": "/**\n * Half lap: wherever a part of shape1 overlaps a part of shape2, the shared\n * volume is split in two. Each part loses the half that lies against its own\n * open edge, so the two notches slide together.\n *\n * The split direction is one where shape1 has no material on one side of the\n * overlap and shape2 has none on the other, which the parts need to go\n * together. When several directions work, the one with the most open sides\n * wins, then the thinnest cut.\n */\n\n// Overlaps smaller than this fraction of the shared volume count as empty\nconst EMPTY_FRACTION = 0.01;\n\nfunction volumeOf(shape: any): number {\n  try {\n    return replicad.measureVolume(shape);\n  } catch (error) {\n    return 0;\n  }\n}\n\nfunction overlapVolume(a: any, b: any): number {\n  try {\n    return volumeOf(a.clone().intersect(b.clone()));\n  } catch (error) {\n    return 0;\n  }\n}\n\nfunction moved(shape: any, axis: any, distance: number): any {\n  return shape.clone().translate([axis.x * distance, axis.y * distance, axis.z * distance]);\n}\n\n// Extent of a shape along an axis, from the end points of its edges\nfunction extentAlong(shape: any, axis: any): number {\n  let min = Infinity;\n  let max = -Infinity;\n  shape.edges.forEach((edge: any) => {\n    [edge.startPoint, edge.endPoint].forEach((point: any) => {\n      const d = point.dot(axis);\n      min = Math.min(min, d);\n      max = Math.max(max, d);\n    });\n  });\n  return max - min;\n}\n\n// Distinct directions normal to the planar faces of the shared volume\nfunction candidateAxes(shape: any): any[] {\n  const axes: any[] = [];\n  shape.faces.forEach((face: any) => {\n    if (face.geomType != \"PLANE\") {\n      return;\n    }\n    const normal = face.normalAt().normalized();\n    if (!axes.some((axis) => axis.cross(normal).Length < 1e-6)) {\n      axes.push(normal);\n    }\n  });\n  return axes;\n}\n\n// solid1 minus the half of its overlap with solid2 that sits against solid1's open side\nfunction halfLapCut(solid1: any, solid2: any): any {\n  let shared;\n  try {\n    shared = solid1.clone().intersect(solid2.clone());\n  } catch (error) {\n    return solid1;\n  }\n  const sharedVolume = volumeOf(shared);\n  if (sharedVolume <= 0) {\n    return solid1; // the parts don't overlap\n  }\n  const empty = sharedVolume * EMPTY_FRACTION;\n\n  let best: any = undefined;\n  for (const axis of candidateAxes(shared)) {\n    const length = extentAlong(shared, axis);\n    if (length <= 0) {\n      continue;\n    }\n    // Blocks the size of the shared volume, just past it on either side\n    const ahead = moved(shared, axis, length);\n    const behind = moved(shared, axis, -length);\n    const open1Ahead = overlapVolume(solid1, ahead) < empty;\n    const open1Behind = overlapVolume(solid1, behind) < empty;\n    const open2Ahead = overlapVolume(solid2, ahead) < empty;\n    const open2Behind = overlapVolume(solid2, behind) < empty;\n\n    // shape1 must be open on the side of the half it gives up, shape2 on the other\n    let sign = 0;\n    if (open1Ahead && open2Behind) {\n      sign = 1;\n    } else if (open1Behind && open2Ahead) {\n      sign = -1;\n    }\n    if (sign == 0) {\n      continue;\n    }\n\n    const openSides = [open1Ahead, open1Behind, open2Ahead, open2Behind].filter((x) => x).length;\n    if (\n      best == undefined ||\n      openSides > best.openSides ||\n      (openSides == best.openSides && length < best.length)\n    ) {\n      best = { axis, length, sign, openSides };\n    }\n  }\n\n  if (best == undefined) {\n    console.warn(\"No direction lets these parts slide together; shape2 takes the whole overlap here\");\n    return solid1;\n  }\n\n  // The half of the shared volume on shape1's open side\n  const half = shared.clone().intersect(moved(shared, best.axis, (best.sign * best.length) / 2));\n  return solid1.clone().cut(half);\n}\n\nfunction run(shape1: Assembly, shape2: Assembly): Assembly {\n  if (!shape1 || !shape2) {\n    throw new Error(\"Connect a part to both shape1 and shape2\");\n  }\n  const parts2 = shape2.filterLeafs((leaf) => !leaf.is2D());\n\n  // Notch every part of shape1 against every part of shape2\n  const notched1 = shape1.onLeafs((leaf) => {\n    if (leaf.is2D()) {\n      return leaf;\n    }\n    let solid = leaf.geometry;\n    for (const part2 of parts2) {\n      solid = halfLapCut(solid, part2.geometry);\n    }\n    return new Assembly({ ...leaf, geometry: solid });\n  });\n  const parts1 = notched1.filterLeafs((leaf) => !leaf.is2D());\n\n  // shape2 gives up whatever still overlaps the notched shape1: the other half\n  const notched2 = shape2.onLeafs((leaf) => {\n    if (leaf.is2D()) {\n      return leaf;\n    }\n    let solid = leaf.geometry;\n    for (const part1 of parts1) {\n      if (overlapVolume(solid, part1.geometry) > 0) {\n        solid = solid.cut(part1.geometry.clone());\n      }\n    }\n    return new Assembly({ ...leaf, geometry: solid });\n  });\n\n  return new Assembly({ geometry: [notched1, notched2] });\n}\n",
+          "compiledCode": "\"use strict\";\n/**\n * Half lap: wherever a part of shape1 overlaps a part of shape2, the shared\n * volume is split in two. Each part loses the half that lies against its own\n * open edge, so the two notches slide together.\n *\n * The split direction is one where shape1 has no material on one side of the\n * overlap and shape2 has none on the other, which the parts need to go\n * together. When several directions work, the one with the most open sides\n * wins, then the thinnest cut.\n */\n// Overlaps smaller than this fraction of the shared volume count as empty\nconst EMPTY_FRACTION = 0.01;\nfunction volumeOf(shape) {\n    try {\n        return replicad.measureVolume(shape);\n    }\n    catch (error) {\n        return 0;\n    }\n}\nfunction overlapVolume(a, b) {\n    try {\n        return volumeOf(a.clone().intersect(b.clone()));\n    }\n    catch (error) {\n        return 0;\n    }\n}\nfunction moved(shape, axis, distance) {\n    return shape.clone().translate([axis.x * distance, axis.y * distance, axis.z * distance]);\n}\n// Extent of a shape along an axis, from the end points of its edges\nfunction extentAlong(shape, axis) {\n    let min = Infinity;\n    let max = -Infinity;\n    shape.edges.forEach((edge) => {\n        [edge.startPoint, edge.endPoint].forEach((point) => {\n            const d = point.dot(axis);\n            min = Math.min(min, d);\n            max = Math.max(max, d);\n        });\n    });\n    return max - min;\n}\n// Distinct directions normal to the planar faces of the shared volume\nfunction candidateAxes(shape) {\n    const axes = [];\n    shape.faces.forEach((face) => {\n        if (face.geomType != \"PLANE\") {\n            return;\n        }\n        const normal = face.normalAt().normalized();\n        if (!axes.some((axis) => axis.cross(normal).Length < 1e-6)) {\n            axes.push(normal);\n        }\n    });\n    return axes;\n}\n// solid1 minus the half of its overlap with solid2 that sits against solid1's open side\nfunction halfLapCut(solid1, solid2) {\n    let shared;\n    try {\n        shared = solid1.clone().intersect(solid2.clone());\n    }\n    catch (error) {\n        return solid1;\n    }\n    const sharedVolume = volumeOf(shared);\n    if (sharedVolume <= 0) {\n        return solid1; // the parts don't overlap\n    }\n    const empty = sharedVolume * EMPTY_FRACTION;\n    let best = undefined;\n    for (const axis of candidateAxes(shared)) {\n        const length = extentAlong(shared, axis);\n        if (length <= 0) {\n            continue;\n        }\n        // Blocks the size of the shared volume, just past it on either side\n        const ahead = moved(shared, axis, length);\n        const behind = moved(shared, axis, -length);\n        const open1Ahead = overlapVolume(solid1, ahead) < empty;\n        const open1Behind = overlapVolume(solid1, behind) < empty;\n        const open2Ahead = overlapVolume(solid2, ahead) < empty;\n        const open2Behind = overlapVolume(solid2, behind) < empty;\n        // shape1 must be open on the side of the half it gives up, shape2 on the other\n        let sign = 0;\n        if (open1Ahead && open2Behind) {\n            sign = 1;\n        }\n        else if (open1Behind && open2Ahead) {\n            sign = -1;\n        }\n        if (sign == 0) {\n            continue;\n        }\n        const openSides = [open1Ahead, open1Behind, open2Ahead, open2Behind].filter((x) => x).length;\n        if (best == undefined ||\n            openSides > best.openSides ||\n            (openSides == best.openSides && length < best.length)) {\n            best = { axis, length, sign, openSides };\n        }\n    }\n    if (best == undefined) {\n        console.warn(\"No direction lets these parts slide together; shape2 takes the whole overlap here\");\n        return solid1;\n    }\n    // The half of the shared volume on shape1's open side\n    const half = shared.clone().intersect(moved(shared, best.axis, (best.sign * best.length) / 2));\n    return solid1.clone().cut(half);\n}\nfunction run(shape1, shape2) {\n    if (!shape1 || !shape2) {\n        throw new Error(\"Connect a part to both shape1 and shape2\");\n    }\n    const parts2 = shape2.filterLeafs((leaf) => !leaf.is2D());\n    // Notch every part of shape1 against every part of shape2\n    const notched1 = shape1.onLeafs((leaf) => {\n        if (leaf.is2D()) {\n            return leaf;\n        }\n        let solid = leaf.geometry;\n        for (const part2 of parts2) {\n            solid = halfLapCut(solid, part2.geometry);\n        }\n        return new Assembly({ ...leaf, geometry: solid });\n    });\n    const parts1 = notched1.filterLeafs((leaf) => !leaf.is2D());\n    // shape2 gives up whatever still overlaps the notched shape1: the other half\n    const notched2 = shape2.onLeafs((leaf) => {\n        if (leaf.is2D()) {\n            return leaf;\n        }\n        let solid = leaf.geometry;\n        for (const part1 of parts1) {\n            if (overlapVolume(solid, part1.geometry) > 0) {\n                solid = solid.cut(part1.geometry.clone());\n            }\n        }\n        return new Assembly({ ...leaf, geometry: solid });\n    });\n    return new Assembly({ geometry: [notched1, notched2] });\n}\n"
+        }
+      ],
+      "allConnectors": [
+        {
+          "ap2Name": "shape2",
+          "ap1ID": "id-418",
+          "ap2ID": "id-420"
+        },
+        {
+          "ap2Name": "shape1",
+          "ap1ID": "id-419",
+          "ap2ID": "id-420"
+        },
+        {
+          "ap2Name": "number or geometry",
+          "ap1ID": "id-420",
+          "ap2ID": "id-417"
+        }
+      ],
+      "parentRepo": {
+        "lastFoundGit": "2026-10-09T18:23:38.944Z",
+        "privateRepo": false,
+        "dateCreated": "2025-06-24T17:18:36Z",
+        "likes": 0,
+        "pngURL": "https://raw.githubusercontent.com/BarbourSmith/HalfLap/master/project.png?sanitize=true",
+        "readme": "https://raw.githubusercontent.com/BarbourSmith/HalfLap/master/README.md?sanitize=true",
+        "yyyy": 2025,
+        "topMoleculeID": "",
+        "userRanking": 0,
+        "userSetAsThumbnail": false,
+        "topics": [],
+        "forks": 0,
+        "dateModified": "739896",
+        "owner": "BarbourSmith",
+        "projectInputs": [
+          {
+            "name": "Assembly1",
+            "type": "geometry"
+          },
+          {
+            "type": "geometry",
+            "name": "Assembly2"
+          }
+        ],
+        "contentURL": "https://raw.githubusercontent.com/BarbourSmith/HalfLap/master/project.abundance?sanitize=true",
+        "repoName": "HalfLap",
+        "githubMoleculesUsed": [],
+        "html_url": "https://github.com/BarbourSmith/HalfLap",
+        "pullRequests": [],
+        "parentRepo": "tristan-huber/HalfLap",
+        "ranking": 1,
+        "searchField": "halflap barboursmith molecule to fix intersections into a half-lap joint style ",
+        "description": "Molecule to fix intersections into a half-lap joint style",
+        "svgURL": "https://raw.githubusercontent.com/BarbourSmith/HalfLap/master/project.svg?sanitize=true",
+        "isLocal": false
+      },
+      "unitsKey": "MM",
+      "fileTypeVersion": 1,
+      "lastReloadedFromGithubAt": 1791572596785
+    },
+    {
+      "atomType": "CutLayout",
+      "x": 0.8,
+      "y": 0.4,
+      "uniqueID": "id-434",
+      "name": "Cut Layout",
+      "ioValues": [
+        {
+          "name": "geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "Sheet Width",
+          "ioValue": 96
+        },
+        {
+          "name": "Sheet Height",
+          "ioValue": 48
+        },
+        {
+          "name": "Part Padding",
+          "ioValue": 0.4
+        },
+        {
+          "name": "Orientations",
+          "ioValue": 12,
+          "currentEquation": "12"
+        }
+      ],
+      "placements": [
+        [
+          {
+            "id": 0,
+            "rotate": 0,
+            "translate": {
+              "x": 0.39999961853027344,
+              "y": 0.38999998569488525
+            }
+          },
+          {
+            "id": 1,
+            "rotate": 180,
+            "translate": {
+              "x": 23.900001525878906,
+              "y": 26.839998245239258
+            }
+          },
+          {
+            "id": 2,
+            "rotate": 270,
+            "translate": {
+              "x": 0.22999989986419678,
+              "y": 65.1500015258789
+            }
+          }
+        ]
+      ]
+    },
+    {
       "atomType": "Input",
       "x": 0,
       "y": 0.3,
       "uniqueID": "id-44",
       "name": "width",
       "options": []
+    },
+    {
+      "atomType": "Gcode",
+      "x": 0.7,
+      "y": 0.8,
+      "uniqueID": "id-441",
+      "ioValues": [
+        {
+          "name": "geometry",
+          "ioValue": "__GEOMETRY_INPUT__"
+        },
+        {
+          "name": "Tool Size",
+          "ioValue": 0.25,
+          "currentEquation": "0.25"
+        },
+        {
+          "name": "Passes",
+          "ioValue": 3
+        },
+        {
+          "name": "Speed",
+          "ioValue": 1500,
+          "currentEquation": "1500"
+        },
+        {
+          "name": "Cut Through",
+          "ioValue": 0.01
+        },
+        {
+          "name": "Part Name",
+          "ioValue": "Pull_Request_Example",
+          "currentEquation": "Pull_Request_Example"
+        }
+      ],
+      "partName": "Pull_Request_Example",
+      "sortDirection": "Left"
     },
     {
       "atomType": "Input",
@@ -484,13 +1110,53 @@
         },
         {
           "name": "zDist",
-          "ioValue": 21.25,
+          "ioValue": 11.25,
           "currentEquation": "height - plywood_thickness"
         }
       ]
     }
   ],
   "allConnectors": [
+    {
+      "ap2Name": "geometry",
+      "ap1ID": "id-150",
+      "ap2ID": "id-388"
+    },
+    {
+      "ap2Name": "Assembly2",
+      "ap1ID": "id-150",
+      "ap2ID": "id-421"
+    },
+    {
+      "ap2Name": "Assembly1",
+      "ap1ID": "id-388",
+      "ap2ID": "id-421"
+    },
+    {
+      "ap2Name": "number or geometry",
+      "ap1ID": "id-406",
+      "ap2ID": "id-2"
+    },
+    {
+      "ap2Name": "geometry",
+      "ap1ID": "id-406",
+      "ap2ID": "id-413"
+    },
+    {
+      "ap2Name": "geometry",
+      "ap1ID": "id-413",
+      "ap2ID": "id-434"
+    },
+    {
+      "ap2Name": "geometry",
+      "ap1ID": "id-413",
+      "ap2ID": "id-441"
+    },
+    {
+      "ap2Name": "Shape 1",
+      "ap1ID": "id-421",
+      "ap2ID": "id-406"
+    },
     {
       "ap2Name": "diameter",
       "ap1ID": "id-44",
@@ -512,9 +1178,9 @@
       "ap2ID": "id-59"
     },
     {
-      "ap2Name": "number or geometry",
+      "ap2Name": "Shape3",
       "ap1ID": "id-59",
-      "ap2ID": "id-2"
+      "ap2ID": "id-406"
     }
   ],
   "unitsKey": "Inches",
